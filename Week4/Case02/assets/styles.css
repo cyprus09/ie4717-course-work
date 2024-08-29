@@ -1,0 +1,30 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: url("../assets/banner.png");
+  font-size: 120%;
+  color: rgb(46, 0, 0);
+}
+
+.wrapper {
+  width: 80%;
+  padding: 1em 5em;
+  margin: auto;
+  min-width: 800px;
+}
+
+header, footer {
+  background-color: rgb(209,179,142);
+}
+
+.content-wrapper {
+  background-color: rgb(245,245,220);
+}
+
+.navbar {
+  float: left;
+  width: 12em;
+  text-align: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+
