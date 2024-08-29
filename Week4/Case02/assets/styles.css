@@ -1,30 +1,178 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
-  background: url("../assets/banner.png");
-  font-size: 120%;
+  background: url("../assets/bg.png");
   color: rgb(46, 0, 0);
 }
 
 .wrapper {
-  width: 80%;
-  padding: 1em 5em;
+  width: 70%;
+  padding: 1em 4em;
   margin: auto;
   min-width: 800px;
 }
 
-header, footer {
-  background-color: rgb(209,179,142);
+header,
+footer {
+  background-color: rgb(209, 179, 142);
+}
+
+h1 {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  padding: 0;
+  margin-bottom: 15px;
+  font-size: 1.2em;
 }
 
 .content-wrapper {
-  background-color: rgb(245,245,220);
+  background-color: rgb(245, 245, 220);
+}
+
+#banner {
+  display: block;
+  margin: auto;
 }
 
 .navbar {
   float: left;
   width: 12em;
+  margin: 40px 5px 20px 5px;
   text-align: center;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bold;
+  color: rgb(128, 82, 68);
+  height: 100%;
 }
 
+.navbar:visited,
+.navbar:focus,
+.navbar:hover,
+.navbar.active {
+  color: rgb(128, 82, 68);
+}
 
+.content {
+  background-color: rgb(245, 245, 220);
+  margin-left: 12em;
+  padding: 1em;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0.5em;
+}
+
+nav a,
+nav a:visited {
+  color: rgb(131, 85, 72);
+}
+
+nav a:hover,
+nav a:active {
+  color: rgb(165, 131, 102);
+  transition-duration: 0.2s;
+}
+
+nav a#current {
+  color: rgb(100, 60, 40);
+}
+
+footer {
+  padding: 1em;
+  margin: auto;
+  text-align: center;
+}
+
+.copyright {
+  color: #000000;
+}
+
+.contact a {
+  font-weight: bold;
+  font-style: italic;
+  color: rgb(46, 0, 0);
+}
+
+#content-left,
+#content-right {
+  width: 50%;
+  vertical-align: top;
+}
+
+/* Index */
+#coffee-house {
+  max-width: 500px;
+  width: 80%;
+  margin-left: 1em;
+  padding-right: 1em;
+}
+
+ul #menu {
+  list-style-image: url("../assets/coffee_cup.png");
+}
+
+/* Jobs */
+table .item-name {
+  text-align: right;
+  vertical-align: top;
+  padding-left: 1em;
+  padding-right: 3em;
+  margin: auto;
+  padding-top: 1em;
+}
+
+/* Menu */
+table.menu {
+  margin: auto;
+  width: 90%;
+  color: rgb(46, 0, 0);
+}
+
+tr:nth-of-type(odd).menu-item {
+  background-color: rgb(210, 180, 140);
+}
+
+table .drink {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bold;
+  text-align: center;
+}
+
+table.menu td {
+  padding: 1em;
+}
+
+/* Music */
+.artist {
+  vertical-align: top;
+  text-align: center;
+}
+
+.artist-img {
+  width: 50%;
+  height: 50%;
+  margin: 10px;
+}
+
+.music {
+  width: 70%;
+  margin: auto;
+}
+
+.month {
+  background-color: rgb(226, 210, 176);
+  font-weight: bold;
+  color: rgb(46, 0, 0);
+}
+
+.music-content, .music-player {
+  padding: 1em;
+}
+
+.player {
+  vertical-align: bottom;
+}
+
+td p {
+  margin: 0;
+}
