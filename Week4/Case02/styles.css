@@ -1,6 +1,7 @@
+/* General CSS */
 body {
   font-family: Arial, Helvetica, sans-serif;
-  background: url("../assets/bg.png");
+  background: url(assets/bg.png);
   color: rgb(46, 0, 0);
 }
 
@@ -32,22 +33,31 @@ h1 {
   margin: auto;
 }
 
+/* navbar */
 .navbar {
   float: left;
   width: 12em;
-  margin: 40px 5px 20px 5px;
+  height: 324px;
+  margin: 0px 5px 0px 0px;
+  padding-top: 20px;
   text-align: center;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-weight: bold;
+  background-color: #DFD2B4;
   color: rgb(128, 82, 68);
-  height: 100%;
+  position: fixed;
 }
 
-.navbar:visited,
-.navbar:focus,
-.navbar:hover,
-.navbar.active {
-  color: rgb(128, 82, 68);
+.navbar-menu {
+  height: 297px;
+}
+
+.navbar-jobs {
+  height: 386px;
+}
+
+.navbar-music {
+  height: 547px;
 }
 
 .content {
@@ -62,19 +72,18 @@ nav ul {
   padding: 0.5em;
 }
 
-nav a,
+nav a:link,
 nav a:visited {
   color: rgb(131, 85, 72);
 }
 
-nav a:hover,
 nav a:active {
-  color: rgb(165, 131, 102);
-  transition-duration: 0.2s;
+  color: rgb(173, 102, 102);
 }
 
-nav a#current {
-  color: rgb(100, 60, 40);
+nav a:hover {
+  color: rgb(165, 131, 102);
+  transition-duration: 0.2s;
 }
 
 footer {
@@ -93,25 +102,30 @@ footer {
   color: rgb(46, 0, 0);
 }
 
+/* home page */
 #content-left,
 #content-right {
   width: 50%;
   vertical-align: top;
 }
 
-/* Index */
 #coffee-house {
-  max-width: 500px;
+  min-width: 400px;
   width: 80%;
   margin-left: 1em;
   padding-right: 1em;
+  height: 250px;
 }
 
-ul #menu {
-  list-style-image: url("../assets/coffee_cup.png");
+#menu {
+  list-style-image: url(assets/coffee-cup-bullet.png);
 }
 
-/* Jobs */
+.address {
+  margin-left: 20px;
+}
+
+/* jobs */
 table .item-name {
   text-align: right;
   vertical-align: top;
@@ -121,7 +135,17 @@ table .item-name {
   padding-top: 1em;
 }
 
-/* Menu */
+#name {
+  width: 200px;
+}
+
+#experience {
+  width: 350px;
+  opacity: unset;
+  height: 60px;
+}
+
+/* menu */
 table.menu {
   margin: auto;
   width: 90%;
@@ -142,7 +166,7 @@ table.menu td {
   padding: 1em;
 }
 
-/* Music */
+/* music */
 .artist {
   vertical-align: top;
   text-align: center;
@@ -160,8 +184,8 @@ table.menu td {
 }
 
 .month {
-  background-color: rgb(226, 210, 176);
-  font-weight: bold;
+  background-color:rgb(226,209,178);
+  font-weight: bolder;
   color: rgb(46, 0, 0);
 }
 

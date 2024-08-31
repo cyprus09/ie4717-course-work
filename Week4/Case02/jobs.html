@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CaseStudy02</title>
-    <link rel="stylesheet" href="assets/styles.css" />
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div class="wrapper">
@@ -12,7 +12,7 @@
         <img alt="JavaJam Coffee House" id="banner" src="assets/banner.png" />
       </header>
       <div class="content-wrapper">
-        <div class="navbar">
+        <div class="navbar navbar-jobs">
           <nav>
             <ul>
               <li><a href="index.html" id="current">Home</a></li>
@@ -26,14 +26,14 @@
           <h1>Jobs at JavaJam</h1>
   
           <p>Want to work at JavaJam? Fill out the form below to start your application. Required fields are marked with an asterisk *</p>
-            <form action="show.php" method="post">
+            <form action="php/show_post.php" method="post">
               <table class="contact">
                 <tr class="contact-item">
                   <td class="item-name">
                     <label for="name">*Name:</label>
                   </td>
                   <td class="input-field">
-                    <input type="text" name="name" id="name" placeholder="Enter your name here">
+                    <input type="text" name="name" id="name" placeholder="Enter your name here" required>
                   </td>
                 </tr>
                 <tr class="contact-item">
@@ -41,7 +41,7 @@
                     <label for="name">*E-mail:</label>
                   </td>
                   <td class="input-field">
-                    <input type="text" name="name" id="name" placeholder="Enter your Email-ID here">
+                    <input type="text" name="name" id="name" placeholder="Enter your Email-ID here" required>
                   </td>
                 </tr>
                 <tr class="contact-item">
@@ -57,7 +57,7 @@
                     <label for="name">*Experience:</label>
                   </td>
                   <td class="input-field">
-                    <textarea type="text" name="name" id="name">Enter your past experience here</textarea>
+                    <textarea name="name" id="experience" required placeholder="Enter your past experience here"></textarea>
                   </td>
                 </tr>
               </table>
