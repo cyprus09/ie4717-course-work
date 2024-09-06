@@ -57,7 +57,11 @@ h1 {
 }
 
 .navbar-music {
-  height: 547px;
+  height: 555px;
+}
+
+nav ul li a.active-home{
+  color: rgb(81, 52, 43);
 }
 
 .content {

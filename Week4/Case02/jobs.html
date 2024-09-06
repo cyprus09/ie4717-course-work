@@ -18,7 +18,7 @@
               <li><a href="index.html" id="current">Home</a></li>
               <li><a href="menu.html">Menu</a></li>
               <li><a href="music.html">Music</a></li>
-              <li><a href="jobs.html">Jobs</a></li>
+              <li><a href="jobs.html" class="active-home">Jobs</a></li>
             </ul>
           </nav>
         </div>
@@ -26,7 +26,7 @@
           <h1>Jobs at JavaJam</h1>
   
           <p>Want to work at JavaJam? Fill out the form below to start your application. Required fields are marked with an asterisk *</p>
-            <form action="php/show_post.php" method="post">
+            <form method="post" action="show_post.php">
               <table class="contact">
                 <tr class="contact-item">
                   <td class="item-name">
@@ -41,7 +41,7 @@
                     <label for="name">*E-mail:</label>
                   </td>
                   <td class="input-field">
-                    <input type="text" name="name" id="name" placeholder="Enter your Email-ID here" required>
+                    <input type="email" name="name" id="name" placeholder="Enter your Email-ID here" required>
                   </td>
                 </tr>
                 <tr class="contact-item">
