@@ -1,42 +1,120 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;900&display=swap");
+
+*, body {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  margin: auto;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+html {
+  background: linear-gradient(135deg, #8ba8bc, #27364c);
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.form-holder {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.form-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.card {
-  padding: 2em;
+.form-content:hover {
+  transform: scale(1.03);
 }
 
-.read-the-docs {
-  color: #888;
+.form-items {
+  padding: 30px;
+  width: 100%;
+  max-width: 540px;
+}
+
+.form-content h3 {
+  color: #fff;
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.form-content p {
+  color: #d1d1d1;
+  font-size: 16px;
+  margin-bottom: 25px;
+}
+
+.form-content input[type="text"],
+.form-content input[type="password"],
+.form-content input[type="email"],
+.form-content select {
+  width: 100%;
+  padding: 12px 16px;
+  margin-top: 12px;
+  border-radius: 6px;
+  border: none;
+  font-size: 15px;
+  background-color: #f1f1f1;
+  color: #333;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-content input[type="text"]:focus,
+.form-content input[type="password"]:focus,
+.form-content input[type="email"]:focus,
+.form-content select:focus {
+  background-color: #e2e6ea;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-content .form-check-label {
+  margin-left: 8px;
+  color: #f1f1f1;
+}
+
+.form-check-input {
+  margin-right: 8px;
+  border-radius: 4px;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: #fff;
+  padding: 12px 20px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+.btn-primary:focus,
+.btn-primary:active {
+  background-color: #004085;
+  outline: none;
+  box-shadow: none;
+}
+
+.form-items span {
+  color: #d10d0d;
+  font-size: 14px;
+  margin-top: 5px;
+  display: block;
 }
