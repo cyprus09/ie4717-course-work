@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CaseStudy02</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script type="text/javascript" src="jobs.js" defer></script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <img alt="JavaJam Coffee House" id="banner" src="assets/banner.png" />
+      </header>
+      <div class="content-wrapper">
+        <div class="navbar navbar-jobs">
+          <nav>
+            <ul>
+              <li><a href="index.html" id="current">Home</a></li>
+              <li><a href="menu.html">Menu</a></li>
+              <li><a href="music.html">Music</a></li>
+              <li><a href="jobs.html" class="active-home">Jobs</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="content" id="content-index">
+          <h1>Jobs at JavaJam</h1>
+  
+          <p>Want to work at JavaJam? Fill out the form below to start your application. Required fields are marked with an asterisk *</p>
+            <form method="post" action="show_post.php" onsubmit="return validateForm()">
+              <table class="contact">
+                <tr class="contact-item">
+                  <td class="item-name">
+                    <label for="name">*Name:</label>
+                  </td>
+                  <td class="input-field">
+                    <input type="text" name="name" id="name" placeholder="Enter your name here" required>
+                  </td>
+                </tr>
+                <tr class="contact-item">
+                  <td class="item-name">
+                    <label for="name">*E-mail:</label>
+                  </td>
+                  <td class="input-field">
+                    <input type="email" name="email" id="email" placeholder="Enter your Email-ID here" required>
+                  </td>
+                </tr>
+                <tr class="contact-item">
+                  <td class="item-name">
+                    <label for="name">Start Date:</label>
+                  </td>
+                  <td class="input-field">
+                    <input type="date" name="start-date" id="start-date">
+                  </td>
+                </tr>
+                <tr class="contact-item">
+                  <td class="item-name">
+                    <label for="name">*Experience:</label>
+                  </td>
+                  <td class="input-field">
+                    <textarea name="name" id="experience" required placeholder="Enter your past experience here"></textarea>
+                  </td>
+                </tr>
+              </table>
+              <br>
+              <input type="reset" value="Clear"><br><br>
+              <input type="submit" value="Apply Now">
+            </form>  
+      </div>
+      </div>
+      <footer>
+        <p>
+        <div class="copyright">
+          <i>Copyright &copy; 2014 JavaJam Coffee House</i>
+        </div>
+          <div class="contact">
+            <a href="mailto:mayank@pallai.com">mayank@pallai.com </a>
+          </div>
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>

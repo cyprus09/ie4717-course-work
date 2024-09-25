@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CaseStudy02</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <img alt="JavaJam Coffee House" id="banner" src="assets/banner.png" />
+      </header>
+      <div class="content-wrapper">
+        <div class="navbar navbar-music">
+          <nav>
+            <ul>
+              <li><a href="index.html" id="current">Home</a></li>
+              <li><a href="menu.html">Menu</a></li>
+              <li><a href="music.html" class="active-home">Music</a></li>
+              <li><a href="jobs.html">Jobs</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="content" id="content-index">
+          <h1>Music at JavaJam</h1>
+
+          <p>
+            The first Friday night each month at JavaJam is a special night. Join us from 8pm to 11pm for some music you
+            won't want to miss.
+          </p>
+
+          <table class="music">
+            <tr class="month">
+              <td colspan="2">JANUARY</td>
+            </tr>
+
+            <tr class="music-content">
+              <td class="artist" rowspan="2">
+                <!-- source: https://medium.com/@sophiagoth/fleetwood-macs-angel-1979-performance-why-this-song-should-inspire-songwriters-e995b367bbe6 -->
+                <img class="artist-img" src="assets/stevie-nicks.png" alt="Stevie Nicks" />
+              </td>
+              <td class="music-description">
+                <p>
+                  Stevie Nicks entertains with her melodic folk style.<br />
+                  <b>CDs are now available!</b>
+                </p>
+              </td>
+            </tr>
+            <tr class="music-player">
+              <td class="player">
+                <audio controls src="assets/gypsy.mp3"></audio>
+              </td>
+            </tr>
+            <tr class="month">
+              <td colspan="2">FEBRUARY</td>
+            </tr>
+
+            <tr class="music-content">
+              <td class="artist" rowspan="2">
+                <!-- source: https://english-voice-over.fandom.com/wiki/Billy_Joel -->
+                <img class="artist-img" src="assets/billy-joel.jpg" alt="Tahoe Greg" />
+              </td>
+
+              <td class="music-description">
+                <p>
+                  Billy Joel is back from his tour.<br />
+                  New songs. New stories.<br />
+                  <b>CDs are now available!</b>
+                </p>
+              </td>
+            </tr>
+
+            <tr class="music-player">
+              <td class="player">
+                <audio controls src="assets/piano-man.mp3"></audio>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <footer>
+        <p>
+          <div class="copyright">
+            <i>Copyright &copy; 2014 JavaJam Coffee House</i>
+          </div>
+          <div class="contact">
+            <a href="mailto:mayank@pallai.com">mayank@pallai.com </a>
+          </div>
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>
