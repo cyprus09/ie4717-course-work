@@ -3,7 +3,9 @@ import {
   NavigationMenuList,
   NavigationMenuItem,
   NavigationMenuTrigger,
+  NavigationMenuLink,
   NavigationMenuContent,
+  navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { CardTitle } from "@/components/ui/card";
 import { CoffeeIcon, MusicIcon, BriefcaseIcon } from "lucide-react";
@@ -15,6 +17,11 @@ const Navbar = () => {
     <div>
       <NavigationMenu className="justify-center my-5 mx-auto">
         <NavigationMenuList>
+          <NavigationMenuItem>
+            <Link to="/HomePage">
+              <NavigationMenuLink className={navigationMenuTriggerStyle()}>Home</NavigationMenuLink>
+            </Link>
+          </NavigationMenuItem>
           <NavigationMenuItem>
             <NavigationMenuTrigger className="bg-[#F1D1B5] text-[#4A362A] hover:bg-[#E4A16B]">
               Menu
@@ -47,10 +54,12 @@ const Navbar = () => {
                   <p className="text-sm">Check out our upcoming music and poetry events.</p>
                 </li>
                 <li>
-                  <Button variant="ghost" className="w-full justify-start text-[#4A362A] hover:bg-[#E4A16B]">
-                    <MusicIcon className="mr-2 h-4 w-4" />
-                    <span>Event Calendar</span>
-                  </Button>
+                  <Link to="/MusicPage">
+                    <Button variant="ghost" className="w-full justify-start text-[#4A362A] hover:bg-[#E4A16B]">
+                      <MusicIcon className="mr-2 h-4 w-4" />
+                      <span>Event Calendar</span>
+                    </Button>
+                  </Link>
                 </li>
               </ul>
             </NavigationMenuContent>
