@@ -3,19 +3,20 @@ import { Button } from "@/components/ui/button";
 import { CoffeeIcon, MusicIcon, Cookie, MicVocal } from "lucide-react";
 import restaurantImage from "../assets/restaurant.jpg";
 import mapImage from "../assets/map.png";
-import Navbar from "@/components/ui/navbar";
+import Navbar from "@/components/Navbar";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
   return (
     <div className="bg-[#F3E8D3] min-h-screen font-sans text-[#4A362A]">
       <Card className="max-w-6xl mx-auto shadow-lg my-auto bg-white border border-[#B08D57]">
-        <CardHeader className="bg-[#8C4B23] text-white mx-auto my-auto rounded-md">
-          <CardTitle className="text-4xl font-bold text-center">JavaJam Coffee House</CardTitle>
-          <CardDescription className="text-center text-[#F1D1B5]">Follow the Winding Road to JavaJam</CardDescription>
-        </CardHeader>
-
-        <Navbar/>
-
+        <Link to="/HomePage">
+          <CardHeader className="bg-[#8C4B23] text-white mx-auto my-auto rounded-md">
+            <CardTitle className="text-4xl font-bold text-center">JavaJam Coffee House</CardTitle>
+            <CardDescription className="text-center text-[#F1D1B5]">Follow the Winding Road to JavaJam</CardDescription>
+          </CardHeader>
+        </Link>
+        <Navbar />
         <CardContent>
           <div className="flex flex-col md:flex-row gap-8">
             <Card className="flex-1 h-80 shadow-md border border-[#B08D57] my-9">
