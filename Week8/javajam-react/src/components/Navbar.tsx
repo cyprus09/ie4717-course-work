@@ -44,9 +44,11 @@ const Navbar = () => {
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuTrigger className="bg-[#F1D1B5] text-[#4A362A] hover:bg-[#E4A16B]">
-              Music
-            </NavigationMenuTrigger>
+            <Link to="/MusicPage">
+              <NavigationMenuTrigger className="bg-[#F1D1B5] text-[#4A362A] hover:bg-[#E4A16B]">
+                Music
+              </NavigationMenuTrigger>
+            </Link>
             <NavigationMenuContent>
               <ul className="grid gap-3 p-6 w-[400px] bg-[#F3E8D3]">
                 <li>
@@ -65,9 +67,9 @@ const Navbar = () => {
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuTrigger className="bg-[#F1D1B5] text-[#4A362A] hover:bg-[#E4A16B]">
-              Jobs
-            </NavigationMenuTrigger>
+              <NavigationMenuTrigger className="bg-[#F1D1B5] text-[#4A362A] hover:bg-[#E4A16B]">
+                Jobs
+              </NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="grid gap-3 p-6 w-[400px] bg-[#F3E8D3]">
                 <li>
@@ -75,10 +77,12 @@ const Navbar = () => {
                   <p className="text-sm">Explore career opportunities at JavaJam.</p>
                 </li>
                 <li>
+            <Link to="/JobsPage">
                   <Button variant="ghost" className="w-full justify-start text-[#4A362A] hover:bg-[#E4A16B]">
                     <BriefcaseIcon className="mr-2 h-4 w-4" />
                     <span>Current Openings</span>
                   </Button>
+            </Link>
                 </li>
               </ul>
             </NavigationMenuContent>
