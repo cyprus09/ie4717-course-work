@@ -46,7 +46,7 @@ const JobsPage = () => {
 
   return (
     <div className="bg-[#F3E8D3] min-h-screen font-sans text-[#4A362A]">
-      <Card className="max-w-6xl mx-auto shadow-lg my-8 bg-white border border-[#B08D57]">
+      <Card className="max-w-6xl mx-auto shadow-lg my-auto bg-white border border-[#B08D57]">
         <Link to="/HomePage">
           <CardHeader className="bg-[#8C4B23] text-white rounded-t-md">
             <CardTitle className="text-4xl font-bold text-center">JavaJam Coffee House</CardTitle>
