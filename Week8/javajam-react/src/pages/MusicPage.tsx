@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Music, Disc } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -80,12 +80,14 @@ const MusicPage = () => {
           </div>
         </CardContent>
 
-        <CardContent className="bg-[#8C4B23] text-white text-center py-4 mt-8 rounded-md">
-          <p className="mb-2">Copyright © 2024 JavaJam Coffee House</p>
-          <Button variant="link" className="text-white hover:text-[#F1D1B5] p-0 h-auto">
-            mayank@pallai.com
-          </Button>
-        </CardContent>
+        <CardFooter className="bg-[#8C4B23] text-white text-center py-4 rounded-b-md">
+          <div className="w-full">
+            <p className="mb-2">Copyright © 2024 JavaJam Coffee House</p>
+            <Button variant="link" className="text-white hover:text-[#F1D1B5] p-0 h-auto">
+              mayank@pallai.com
+            </Button>
+          </div>
+        </CardFooter>
       </Card>
     </div>
   );

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -145,12 +145,14 @@ const MenuPage = () => {
           </div>
         </CardContent>
 
-        <CardContent className="bg-[#8C4B23] text-white text-center py-4 mt-8 rounded-md">
-          <p className="mb-2">Copyright © 2024 JavaJam Coffee House</p>
-          <Button variant="link" className="text-white hover:text-[#F1D1B5] p-0 h-auto">
-            mayank@pallai.com
-          </Button>
-        </CardContent>
+        <CardFooter className="bg-[#8C4B23] text-white text-center py-4 rounded-b-md">
+          <div className="w-full">
+            <p className="mb-2">Copyright © 2024 JavaJam Coffee House</p>
+            <Button variant="link" className="text-white hover:text-[#F1D1B5] p-0 h-auto">
+              mayank@pallai.com
+            </Button>
+          </div>
+        </CardFooter>
       </Card>
     </div>
   );

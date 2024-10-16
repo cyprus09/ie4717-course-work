@@ -1,66 +1,54 @@
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { useState } from "react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import Navbar from "@/components/Navbar";
-import { Link } from "react-router-dom";
+
+const schema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters").max(50, "Name must not exceed 50 characters"),
+  email: z.string().email("Please enter a valid email address"),
+  startDate: z
+    .string()
+    .refine(date => new Date(date) > new Date(), {
+      message: "Start date must be in the future",
+    })
+    .optional()
+    .or(z.literal("")),
+  experience: z.string().min(10, "Please provide more details about your experience"),
+});
+
+type FormData = z.infer<typeof schema>;
 
 const JobsPage = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    startDate: "",
-    experience: "",
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<FormData>({
+    resolver: zodResolver(schema),
   });
+  const [submitSuccess, setSubmitSuccess] = useState(false);
 
-  const [errors, setErrors] = useState<{ [key: string]: string }>({});
-
-  const validateName = (name: string) => /^[a-zA-Z\s]+$/.test(name);
-  const validateEmail = (email: string) => /^[\w.-]+@[a-zA-Z\d-]+(\.[a-zA-Z\d-]+){1,3}\.[a-zA-Z]{2,3}$/.test(email);
-  const validateStartDate = (startDate: string) => {
-    const date = new Date(startDate);
-    return date > new Date();
-  };
-
-  const validateForm = (e: React.FormEvent) => {
-    e.preventDefault();
-    const { name, email, startDate, experience } = formData;
-    const newErrors: { [key: string]: string } = {};
-
-    if (!validateName(name)) newErrors.name = "Name can only contain alphabet characters and spaces.";
-    if (!validateEmail(email)) newErrors.email = "Please enter a valid email address!";
-    if (startDate && !validateStartDate(startDate)) newErrors.startDate = "Start date cannot be today or in the past.";
-    if (!experience) newErrors.experience = "Experience is required.";
-
-    if (Object.keys(newErrors).length) {
-      setErrors(newErrors);
-    } else {
-      // Submit the form data
-      console.log("Form submitted:", formData);
-      // Reset form fields
-      setFormData({
-        name: "",
-        email: "",
-        startDate: "",
-        experience: "",
-      });
-      setErrors({});
-    }
-  };
-
-  const handleChange = (e: { target: { name: string; value: string } }) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-    setErrors(prev => ({ ...prev, [name]: value }));
+  const onSubmit: SubmitHandler<FormData> = data => {
+    console.log("Form submitted:", data);
+    setSubmitSuccess(true);
+    reset();
+    setTimeout(() => setSubmitSuccess(false), 5000);
   };
 
   return (
     <div className="bg-[#F3E8D3] min-h-screen font-sans text-[#4A362A]">
-      <Card className="max-w-6xl mx-auto shadow-lg my-auto bg-white border border-[#B08D57]">
+      <Card className="max-w-6xl mx-auto shadow-lg my-8 bg-white border border-[#B08D57]">
         <Link to="/HomePage">
-          <CardHeader className="bg-[#8C4B23] text-white mx-auto my-auto rounded-md">
+          <CardHeader className="bg-[#8C4B23] text-white rounded-t-md">
             <CardTitle className="text-4xl font-bold text-center">JavaJam Coffee House</CardTitle>
             <CardDescription className="text-center text-[#F1D1B5]">Follow the Winding Road to JavaJam</CardDescription>
           </CardHeader>
@@ -74,79 +62,67 @@ const JobsPage = () => {
             an asterisk *
           </p>
 
-          <form onSubmit={validateForm}>
-            <div className="mb-4">
+          {submitSuccess && (
+            <Alert className="mb-4 bg-green-100 border-green-400 text-green-700">
+              <AlertDescription>Application submitted successfully!</AlertDescription>
+            </Alert>
+          )}
+
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+            <div>
               <Label htmlFor="name">*Name:</Label>
-              <Input
-                type="text"
-                name="name"
-                id="name"
-                placeholder="Enter your name here"
-                required
-                value={formData.name}
-                onChange={handleChange}
-                className="mt-1"
-              />
-              {errors.name && <p className="text-red-500">{errors.name}</p>}
+              <Input {...register("name")} id="name" placeholder="Enter your name here" className="mt-1" />
+              {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>}
             </div>
 
-            <div className="mb-4">
+            <div>
               <Label htmlFor="email">*E-mail:</Label>
               <Input
-                type="email"
-                name="email"
+                {...register("email")}
                 id="email"
+                type="email"
                 placeholder="Enter your Email-ID here"
-                required
-                value={formData.email}
-                onChange={handleChange}
                 className="mt-1"
               />
-              {errors.email && <p className="text-red-500">{errors.email}</p>}
+              {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
             </div>
 
-            <div className="mb-4">
+            <div>
               <Label htmlFor="start-date">Start Date:</Label>
-              <Input
-                type="date"
-                name="startDate"
-                id="start-date"
-                value={formData.startDate}
-                onChange={handleChange}
-                className="mt-1"
-              />
-              {errors.startDate && <p className="text-red-500">{errors.startDate}</p>}
+              <Input {...register("startDate")} id="start-date" type="date" className="mt-1" />
+              {errors.startDate && <p className="text-red-500 text-sm mt-1">{errors.startDate.message}</p>}
             </div>
 
-            <div className="mb-4">
+            <div>
               <Label htmlFor="experience">*Experience:</Label>
               <Textarea
-                name="experience"
+                {...register("experience")}
                 id="experience"
-                required
                 placeholder="Enter your past experience here"
-                value={formData.experience}
-                onChange={handleChange}
                 className="mt-1"
               />
-              {errors.experience && <p className="text-red-500">{errors.experience}</p>}
+              {errors.experience && <p className="text-red-500 text-sm mt-1">{errors.experience.message}</p>}
             </div>
 
             <div className="flex space-x-4">
-              <Button type="reset" variant="outline">
+              <Button type="button" variant="outline" onClick={() => reset()}>
                 Clear
               </Button>
-              <Button type="submit">Apply Now</Button>
+              <Button type="submit" className="bg-[#F1D1B5] text-[#4A362A] hover:bg-[#E4A16B]">
+                Apply Now
+              </Button>
             </div>
           </form>
         </CardContent>
 
-        <CardContent className="bg-[#8C4B23] text-white text-center py-4 mt-8 rounded-md">
-          <p className="mb-2">Copyright © 2024 JavaJam Coffee House</p>
-          <Button variant="link" className="text-white hover:text-[#F1D1B5] p-0 h-auto">
-            mayank@pallai.com
-          </Button>
-        </CardContent>
+        <CardFooter className="bg-[#8C4B23] text-white text-center py-4 rounded-b-md">
+          <div className="w-full">
+            <p className="mb-2">Copyright © 2024 JavaJam Coffee House</p>
+            <Button variant="link" className="text-white hover:text-[#F1D1B5] p-0 h-auto">
+              mayank@pallai.com
+            </Button>
+          </div>
+        </CardFooter>
       </Card>
     </div>
   );
