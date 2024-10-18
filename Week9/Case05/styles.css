@@ -1,0 +1,248 @@
+/* General CSS */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: url(assets/bg.png);
+  color: rgb(46, 0, 0);
+}
+
+.wrapper {
+  width: 70%;
+  padding: 1em 4em;
+  margin: auto;
+  min-width: 800px;
+}
+
+header,
+footer {
+  background-color: rgb(209, 179, 142);
+}
+
+h1 {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  padding: 0;
+  margin-bottom: 15px;
+  font-size: 1.2em;
+}
+
+.content-wrapper {
+  background-color: rgb(245, 245, 220);
+}
+
+#banner {
+  display: block;
+  margin: auto;
+}
+
+/* navbar */
+.navbar {
+  float: left;
+  width: 12em;
+  height: 324px;
+  margin: 0px 5px 0px 0px;
+  padding-top: 20px;
+  text-align: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bold;
+  background-color: #dfd2b4;
+  color: rgb(128, 82, 68);
+  position: relative;
+}
+
+.navbar-menu {
+  height: 502px;
+}
+
+.navbar-jobs {
+  height: 386px;
+}
+
+.navbar-music {
+  height: 554px;
+}
+
+nav ul li a.active-home {
+  color: rgb(81, 52, 43);
+}
+
+.content {
+  background-color: rgb(245, 245, 220);
+  margin-left: 12em;
+  padding: 1em;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0.5em;
+}
+
+nav a:link,
+nav a:visited {
+  color: rgb(131, 85, 72);
+}
+
+nav a:active {
+  color: rgb(173, 102, 102);
+}
+
+nav a:hover {
+  color: rgb(165, 131, 102);
+  transition-duration: 0.2s;
+}
+
+footer {
+  padding: 1em;
+  margin: auto;
+  text-align: center;
+}
+
+.copyright {
+  color: #000000;
+}
+
+.contact a {
+  font-weight: bold;
+  font-style: italic;
+  color: rgb(46, 0, 0);
+}
+
+/* home page */
+#content-left,
+#content-right {
+  width: 50%;
+  vertical-align: top;
+}
+
+#coffee-house {
+  min-width: 400px;
+  width: 80%;
+  margin-left: 1em;
+  padding-right: 1em;
+  height: 250px;
+}
+
+#menu {
+  list-style-image: url(assets/coffee-cup-bullet.png);
+}
+
+.address {
+  margin-left: 20px;
+}
+
+/* jobs */
+table .item-name {
+  text-align: right;
+  vertical-align: top;
+  padding-left: 1em;
+  padding-right: 3em;
+  margin: auto;
+  padding-top: 1em;
+}
+
+#name {
+  width: 200px;
+}
+#email {
+  width: 200px;
+}
+#start-date {
+  width: 200px;
+}
+
+#experience {
+  width: 350px;
+  opacity: unset;
+  height: 60px;
+}
+
+/* menu */
+table.menu {
+  margin: auto;
+  width: 90%;
+  color: rgb(46, 0, 0);
+}
+
+tr:nth-of-type(odd).menu-item {
+  background-color: rgb(210, 180, 140);
+}
+
+table .drink {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bold;
+  text-align: center;
+}
+
+table.menu td {
+  padding: 1em;
+}
+
+.quantity,
+.subtotal {
+  text-align: center;
+  vertical-align: middle;
+}
+
+#cafeAuLaitQty,
+#icedCappuccinoQty,
+#justJavaQty {
+  width: 60px;
+  padding: 8px;
+  margin: 5px;
+  border-radius: 5px;
+  background-color: #f6ecc4;
+  text-align: center;
+}
+
+#cafeAuLaitSize,
+#icedCappuccinoSize {
+  width: 80px;
+  text-align: center;
+  margin: 3px;
+  padding: 5px;
+  border-radius: 5px;
+  background-color: #f6ecc4;
+}
+
+.total-container {
+  text-align: right;
+  margin-top: 20px;
+  margin-right: 40px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 1.2em;
+}
+
+/* music */
+.artist {
+  vertical-align: top;
+  text-align: center;
+}
+
+.artist-img {
+  width: 50%;
+  height: 50%;
+  margin: 10px;
+}
+
+.music {
+  width: 70%;
+  margin: auto;
+}
+
+.month {
+  background-color: rgb(226, 209, 178);
+  font-weight: bolder;
+  color: rgb(46, 0, 0);
+}
+
+.music-content,
+.music-player {
+  padding: 1em;
+}
+
+.player {
+  vertical-align: bottom;
+}
+
+td p {
+  margin: 0;
+}
