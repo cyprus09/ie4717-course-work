@@ -1,5 +1,5 @@
 -- create the coffee prices db
-create database coffee_prices use coffee_prices;
+use javajam_coffee;
 
 -- create the table to track prices
 create table
