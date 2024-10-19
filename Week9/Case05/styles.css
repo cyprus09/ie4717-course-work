@@ -49,15 +49,19 @@ h1 {
 }
 
 .navbar-menu {
-  height: 502px;
+  height: 582px;
 }
 
 .navbar-jobs {
-  height: 386px;
+  height: 366px;
 }
 
 .navbar-music {
   height: 554px;
+}
+
+.navbar-update-pricing {
+  height: 393px;
 }
 
 nav ul li a.active-home {
@@ -155,6 +159,11 @@ table .item-name {
   height: 60px;
 }
 
+.jobs-buttons {
+  display: flex;
+  flex-grow: 1;
+}
+
 /* menu page */
 form {
   margin-top: 20px;
@@ -233,7 +242,7 @@ table.menu td {
   font-size: 1.2em;
   background-color: #d1b38e;
   border-radius: 5px;
-  padding: 15px;
+  padding: 10px;
 }
 
 /* update pricing extra css */
@@ -263,6 +272,27 @@ input[type="submit"] {
   margin-left: 20px;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+  background-color: #a5683c;
+  transition: background-color 0.3s ease;
+}
+
+input[type="reset"] {
+  background-color: #d1b38e;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-left: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+input[type="reset"]:hover {
+  background-color: #a5683c;
   transition: background-color 0.3s ease;
 }
 

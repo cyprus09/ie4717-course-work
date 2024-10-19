@@ -91,7 +91,7 @@ header("X-Content-Type-Options: nosniff");
       <img alt="JavaJam Coffee House" id="banner" src="assets/banner.png" />
     </header>
     <div class="content-wrapper">
-      <div class="navbar navbar-jobs">
+      <div class="navbar navbar-update-pricing">
         <nav>
           <ul>
             <li><a href="index.html" id="current">Home</a></li>
@@ -136,7 +136,6 @@ header("X-Content-Type-Options: nosniff");
             </tr>
           </table>
           <div class="total-container">
-            <h3>Total: <span id="totalAmount">$0.00</span></h3>
             <input type="submit" class="update-prices" value="Update Prices">
           </div>
         </form>
