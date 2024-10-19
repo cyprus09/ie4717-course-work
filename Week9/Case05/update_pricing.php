@@ -2,7 +2,7 @@
 // initiate db conn
 $hostname = "localhost";
 $username = "root";
-$password = ""; // add your password if set in the config file
+$password = "12345"; // add your password if set in the config file
 $database = "javajam_coffee";
 
 $conn = new mysqli($hostname, $username, $password, $database);
@@ -79,7 +79,7 @@ header("X-Content-Type-Options: nosniff");
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CaseStudy02</title>
+  <title>JavaJam Coffee House</title>
   <link rel="stylesheet" href="./styles.css" />
   <script type="text/javascript" src="./js/update_pricing.js"></script>
 

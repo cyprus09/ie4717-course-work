@@ -64,6 +64,10 @@ h1 {
   height: 393px;
 }
 
+.navbar-sales-report {
+  height: 312px;
+}
+
 nav ul li a.active-home {
   color: rgb(81, 52, 43);
 }
@@ -330,4 +334,71 @@ input[type="reset"]:hover {
 
 td p {
   margin: 0;
+}
+
+/* sales report */
+#salestable {
+  display: flex;
+  justify-content: flex-start;
+  padding-left: 5vw;
+}
+
+#salestable table {
+  margin: 0 auto;
+  width: 60vw;
+  height: auto;
+  border-spacing: 0;
+}
+
+#salestable th {
+  color: #441613;
+  font-size: 1.5em;
+  text-align: left;
+  padding-bottom: 10px;
+}
+
+#salestable td {
+  font-size: 1.2em;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: #441613;
+  padding: 15px;
+  border: none;
+  vertical-align: middle;
+}
+
+input[type="checkbox"] {
+  display: none;
+}
+
+.custom-checkbox {
+  width: 25px;
+  height: 25px;
+  border: 2px solid #441613;
+  border-radius: 4px;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+input[type="checkbox"]:checked + .custom-checkbox {
+  background-color: #91643d;
+}
+
+.custom-checkbox::after {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 5px;
+  width: 8px;
+  height: 12px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+input[type="checkbox"]:checked + .custom-checkbox::after {
+  opacity: 1;
 }

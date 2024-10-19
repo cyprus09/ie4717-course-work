@@ -2,7 +2,7 @@
 // initiate db conn
 $hostname = "localhost";
 $username = "root";
-$password = ""; // add your password if set in the config file
+$password = "12345"; // add your password if set in the config file
 $database = "javajam_coffee";
 
 $conn = new mysqli($hostname, $username, $password, $database);
@@ -82,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>JavaJam Coffee</title>
+  <title>JavaJam Coffee House</title>
   <link rel="stylesheet" href="./styles.css" />
   <script type="text/javascript" src="./js/menu.js"></script>
 </head>
