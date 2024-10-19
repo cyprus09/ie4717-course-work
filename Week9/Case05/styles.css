@@ -155,11 +155,23 @@ table .item-name {
   height: 60px;
 }
 
-/* menu */
+/* menu page */
+form {
+  margin-top: 20px;
+}
+
 table.menu {
   margin: auto;
   width: 90%;
   color: rgb(46, 0, 0);
+}
+
+.menu-item {
+  transition: background-color 0.3s ease;
+}
+
+.menu-item:hover {
+  background-color: #e6e6c8;
 }
 
 tr:nth-of-type(odd).menu-item {
@@ -180,6 +192,15 @@ table.menu td {
 .subtotal {
   text-align: center;
   vertical-align: middle;
+}
+
+.description {
+  padding-right: 20px;
+}
+
+.description b {
+  display: block;
+  margin-top: 5px;
 }
 
 #cafeAuLaitQty,
@@ -207,8 +228,42 @@ table.menu td {
   text-align: right;
   margin-top: 20px;
   margin-right: 40px;
+  margin-left: 40px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 1.2em;
+  background-color: #d1b38e;
+  border-radius: 5px;
+  padding: 15px;
+}
+
+/* update pricing extra css */
+.check-box {
+  width: 30px;
+  text-align: center;
+}
+
+.check-box input[type="checkbox"] {
+  transform: scale(1.2);
+}
+
+input[type="number"].price {
+  width: 60px;
+  padding: 5px;
+  margin: 0 5px;
+  border: 1px solid #d1b38e;
+  border-radius: 3px;
+  background-color: #fff;
+}
+
+input[type="submit"] {
+  background-color: #8b4513;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-left: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 /* music */

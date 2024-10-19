@@ -22,8 +22,8 @@ values
   ('justJava', 2.00),
   ('cafeAuLaitSingle', 2.00),
   ('cafeAuLaitDouble', 3.00),
-  ('icedCappucinoSingle', 4.75),
-  ('icedCappucinoDouble', 5.75);
+  ('icedCappuccinoSingle', 4.75),
+  ('icedCappuccinoDouble', 5.75);
 
 -- insert init values into sales tables
 insert into
@@ -45,15 +45,15 @@ values
     0.00
   ),
   (
-    'icedCappucinoSingle',
+    'icedCappuccinoSingle',
     'Iced Cappucino',
     'Single',
     0,
     0.00
   ),
   (
-    'icedCappucinoDouble',
-    'Iced Cappucino',
+    'icedCappuccinoDouble',
+    'Iced Cappuccino',
     'Double',
     0,
     0.00

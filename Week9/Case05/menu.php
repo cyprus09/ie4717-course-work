@@ -9,80 +9,68 @@ $conn = new mysqli($hostname, $username, $password, $database);
 
 // fallback to check the conn
 if ($conn->connect_error) {
-  echo "Failed to connect: " . $conn->connect_error;
-  exit();
+  die("Failed to connect: " . $conn->connect_error);
 }
 
 // function to execute sql query to fetch the coffee prices
 function getCoffeeValue($conn, $coffeeType)
 {
-  $sql = "select price FROM prices where coffee_type = '$coffeeType'";
-  $result = $conn->query($sql);
-
+  // Use prepared statements for security
+  $stmt = $conn->prepare("SELECT price FROM prices WHERE coffee_type = ?");
+  $stmt->bind_param("s", $coffeeType);
+  $stmt->execute();
+  $result = $stmt->get_result();
   $price = "NULL";
-
-  if ($result) {
-    if (mysqli_num_rows($result) > 0) {
-      $row = $result->fetch_assoc();
-      $price = htmlspecialchars($row['price']);
-    }
+  if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $price = htmlspecialchars($row['price']);
   }
-
+  $stmt->close();
   return $price;
 }
 
 function updateOrders($conn, $coffeeType, $quantity)
 {
-  $sql = "update sales set quantity = quantity + '$quantity' where coffee_type = '$coffeeType'";
-  $result = $conn->query($sql);
-
-  if (!$result) {
-    return false;
-  }
-
-  return true;
+  $stmt = $conn->prepare("UPDATE sales SET quantity = quantity + ? WHERE coffee_type = ?");
+  $stmt->bind_param("is", $quantity, $coffeeType);
+  return $stmt->execute();
 }
 
 function updateRevenue($conn, $coffeeType, $revenue)
 {
-  $sql = "update sales set revenue = revenue + '$revenue' where coffee_type = '$coffeeType'";
-  $result = $conn->query($sql);
-
-  if (!$result) {
-    return false;
-  }
-
-  return true;
+  $stmt = $conn->prepare("UPDATE sales SET revenue = revenue + ? WHERE coffee_type = ?");
+  $stmt->bind_param("ds", $revenue, $coffeeType);
+  return $stmt->execute();
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  // for just java
-  if (isset($_POST['java']) && !empty($_POST['quantity_java'])) {
-    $coffee = $_POST['java'];
-    $quantity = $_POST['quantity_java'];
-    updateOrders($conn, $coffee, $quantity);
+  // Handling Just Java
+  if (!empty($_POST['justJavaQty'])) {
+    $coffee = 'justJava';  // Define the coffee type
+    $quantity = (int)$_POST['justJavaQty'];
     $price = getCoffeeValue($conn, $coffee);
     $revenue = $price * $quantity;
+    updateOrders($conn, $coffee, $quantity);
     updateRevenue($conn, $coffee, $revenue);
   }
 
-  // for cafe au lait
-  if (isset($_POST['cafe']) && !empty($_POST['quantity_cafe'])) {
-    $coffee = $_POST['cafe'];
-    $quantity = $_POST['quantity_cafe'];
-    updateOrders($conn, $coffee, $quantity);
+  // Handling Cafe au Lait
+  if (!empty($_POST['cafeAuLaitQty'])) {
+    $coffee = 'cafeAuLait';  // Define the coffee type
+    $quantity = (int)$_POST['cafeAuLaitQty'];
     $price = getCoffeeValue($conn, $coffee);
     $revenue = $price * $quantity;
+    updateOrders($conn, $coffee, $quantity);
     updateRevenue($conn, $coffee, $revenue);
   }
 
-  // for iced cappuccino
-  if (isset($_POST['cappuccino']) && !empty($_POST['quantity_cappuccino'])) {
-    $coffee = $_POST['cappuccino'];
-    $quantity = $_POST['quantity_cappuccino'];
-    updateOrders($conn, $coffee, $quantity);
+  // Handling Iced Cappuccino
+  if (!empty($_POST['icedCappuccinoQty'])) {
+    $coffee = 'icedCappuccino';  // Define the coffee type
+    $quantity = (int)$_POST['icedCappuccinoQty'];
     $price = getCoffeeValue($conn, $coffee);
     $revenue = $price * $quantity;
+    updateOrders($conn, $coffee, $quantity);
     updateRevenue($conn, $coffee, $revenue);
   }
 }
@@ -94,9 +82,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CaseStudy04</title>
-  <link rel="stylesheet" href="styles.css" />
-  <script type="text/javascript" src="menu.js"></script>
+  <title>JavaJam Coffee</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <script type="text/javascript" src="./js/menu.js"></script>
 </head>
 
 <body>
@@ -112,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <li><a href="menu.php" class="active-home">Menu</a></li>
             <li><a href="music.html">Music</a></li>
             <li><a href="jobs.html">Jobs</a></li>
-            <br>
+            <br><br>
             <li><a href="update_pricing.php">Update Pricing</a></li>
             <li><a href="sales_report.php">Sales Report</a></li>
           </ul>
@@ -120,60 +108,64 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       </div>
       <div class="content" id="content-index">
         <h1>Coffee at JavaJam</h1>
-        <table class="menu">
-          <tr class="menu-item">
-            <td class="drink">Just Java</td>
-            <td class="description">
-              Regular house blend, decaffeinated coffee, or flavor of the day.
-              <br><b>Endless Cup $<?php echo getCoffeeValue($conn, 'justJava'); ?></b>
-            </td>
-            <td class="quantity">
-              <label for="justJavaQty">Quantity:</label>
-              <input type="number" id="justJavaQty" value="0" min="0" onchange="updateSubtotal()">
-            </td>
-            <td class="subtotal" id="justJavaSubtotal">$0.00</td>
-          </tr>
-          <tr class="menu-item">
-            <td class="drink">Cafe au Lait</td>
-            <td class="description">
-              House blended coffee infused into a smooth steamed milk.
-              <br><b>Single $<?php echo getCoffeeValue($conn, 'cafeAuLaitSingle'); ?>
-                Double $<?php echo getCoffeeValue($conn, 'cafeAuLaitDouble');
-                        $price ?></b>
-            </td>
-            <td class="quantity">
-              <label for="cafeAuLaitQty">Quantity:</label>
-              <input type="number" id="cafeAuLaitQty" value="0" min="0" onchange="updateSubtotal()">
-              <select id="cafeAuLaitSize" onchange="updateSubtotal()">
-                <option value="2.00">Single</option>
-                <option value="3.00">Double</option>
-              </select>
-            </td>
-            <td class="subtotal" id="cafeAuLaitSubtotal">$0.00</td>
-          </tr>
-          <tr class="menu-item">
-            <td class="drink">Iced Cappuccino</td>
-            <td class="description">
-              Sweetened espresso blended with icy-cold milk and served in a chilled glass.
-              <br><b>Single $<?php echo getCoffeeValue($conn, 'icedCappucinoSingle');
-                              $price ?> Double $<?php echo getCoffeeValue($conn, 'icedCappucinoSingle'); ?> </b>
-            </td>
-            <td class="quantity">
-              <label for="icedCappuccinoQty">Quantity:</label>
-              <input type="number" id="icedCappuccinoQty" value="0" min="0" onchange="updateSubtotal()">
-              <select id="icedCappuccinoSize" onchange="updateSubtotal()">
-                <option value="4.75">Single</option>
-                <option value="5.75">Double</option>
-              </select>
-            </td>
-            <td class="subtotal" id="icedCappuccinoSubtotal">$0.00</td>
-          </tr>
-        </table>
-        <div class="total-container">
-          <h3>Total: <span id="totalAmount">$0.00</span></h3>
-        </div>
+        <form method="POST" action="">
+          <table class="menu">
+            <!-- Just Java -->
+            <tr class="menu-item">
+              <td class="drink">Just Java</td>
+              <td class="description">
+                Regular house blend, decaffeinated coffee, or flavor of the day.
+                <br><b>Endless Cup $<?php echo getCoffeeValue($conn, 'justJava'); ?></b>
+              </td>
+              <td class="quantity">
+                <label for="justJavaQty">Quantity:</label>
+                <input type="number" id="justJavaQty" name="justJavaQty" value="0" min="0" onchange="updateSubtotal()">
+              </td>
+              <td class="subtotal" id="justJavaSubtotal">$0.00</td>
+            </tr>
+            <!-- Cafe au Lait -->
+            <tr class="menu-item">
+              <td class="drink">Cafe au Lait</td>
+              <td class="description">
+                House blended coffee infused into a smooth steamed milk.
+                <br><b>Single $<?php echo getCoffeeValue($conn, 'cafeAuLaitSingle'); ?>
+                  Double $<?php echo getCoffeeValue($conn, 'cafeAuLaitDouble'); ?></b>
+              </td>
+              <td class="quantity">
+                <label for="cafeAuLaitQty">Quantity:</label>
+                <input type="number" id="cafeAuLaitQty" name="cafeAuLaitQty" value="0" min="0" onchange="updateSubtotal()">
+                <select id="cafeAuLaitSize" onchange="updateSubtotal()">
+                  <option value="<?php echo getCoffeeValue($conn, 'cafeAuLaitSingle'); ?>">Single</option>
+                  <option value="<?php echo getCoffeeValue($conn, 'cafeAuLaitDouble'); ?>">Double</option>
+                </select>
+              </td>
+              <td class="subtotal" id="cafeAuLaitSubtotal">$0.00</td>
+            </tr>
+            <!-- Iced Cappuccino -->
+            <tr class="menu-item">
+              <td class="drink">Iced Cappuccino</td>
+              <td class="description">
+                Sweetened espresso blended with icy-cold milk and served in a chilled glass.
+                <br><b>Single $<?php echo getCoffeeValue($conn, 'icedCappuccinoSingle'); ?>
+                  Double $<?php echo getCoffeeValue($conn, 'icedCappuccinoDouble'); ?></b>
+              </td>
+              <td class="quantity">
+                <label for="icedCappuccinoQty">Quantity:</label>
+                <input type="number" id="icedCappuccinoQty" name="icedCappuccinoQty" value="0" min="0" onchange="updateSubtotal()">
+                <select id="icedCappuccinoSize" onchange="updateSubtotal()">
+                  <option value="<?php echo getCoffeeValue($conn, 'icedCappuccinoSingle'); ?>">Single</option>
+                  <option value="<?php echo getCoffeeValue($conn, 'icedCappuccinoDouble'); ?>">Double</option>
+                </select>
+              </td>
+              <td class="subtotal" id="icedCappuccinoSubtotal">$0.00</td>
+            </tr>
+          </table>
+          <div class="total-container">
+            <h3>Total: <span id="totalAmount">$0.00</span></h3>
+            <input type="submit" value="Order Now!">
+          </div>
+        </form>
       </div>
-
     </div>
     <footer>
       <p>
@@ -181,7 +173,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <i>Copyright &copy; 2014 JavaJam Coffee House</i>
       </div>
       <div class="contact">
-        <a href="mailto:mayank@pallai.com">mayank@pallai.com </a>
+        <a href="mailto:mayank@pallai.com">mayank@pallai.com</a>
       </div>
       </p>
     </footer>
