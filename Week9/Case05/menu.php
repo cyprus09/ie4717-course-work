@@ -13,15 +13,6 @@ if ($conn->connect_error) {
   exit();
 }
 
-// array to fetch the coffee variant prices
-$coffeeVariants = [
-  'justJava',
-  'cafeAuLaitSingle',
-  'cafeAuLaitDouble',
-  'icedCappucinoSingle',
-  'icedCappucinoDouble',
-];
-
 // function to execute sql query to fetch the coffee prices
 function getCoffeeValue($conn, $coffeeType)
 {
@@ -121,6 +112,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <li><a href="menu.php" class="active-home">Menu</a></li>
             <li><a href="music.html">Music</a></li>
             <li><a href="jobs.html">Jobs</a></li>
+            <br>
+            <li><a href="update_pricing.php">Update Pricing</a></li>
+            <li><a href="sales_report.php">Sales Report</a></li>
           </ul>
         </nav>
       </div>
@@ -131,8 +125,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <td class="drink">Just Java</td>
             <td class="description">
               Regular house blend, decaffeinated coffee, or flavor of the day.
-              <br><b>Endless Cup $<?php echo getCoffeeValue($conn, 'justJava');
-                                  $price ?></b>
+              <br><b>Endless Cup $<?php echo getCoffeeValue($conn, 'justJava'); ?></b>
             </td>
             <td class="quantity">
               <label for="justJavaQty">Quantity:</label>
@@ -144,7 +137,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <td class="drink">Cafe au Lait</td>
             <td class="description">
               House blended coffee infused into a smooth steamed milk.
-              <br><b>Single $2.00 Double $3.00</b>
+              <br><b>Single $<?php echo getCoffeeValue($conn, 'cafeAuLaitSingle'); ?>
+                Double $<?php echo getCoffeeValue($conn, 'cafeAuLaitDouble');
+                        $price ?></b>
             </td>
             <td class="quantity">
               <label for="cafeAuLaitQty">Quantity:</label>
@@ -160,7 +155,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <td class="drink">Iced Cappuccino</td>
             <td class="description">
               Sweetened espresso blended with icy-cold milk and served in a chilled glass.
-              <br><b>Single $4.75 Double $5.75</b>
+              <br><b>Single $<?php echo getCoffeeValue($conn, 'icedCappucinoSingle');
+                              $price ?> Double $<?php echo getCoffeeValue($conn, 'icedCappucinoSingle'); ?> </b>
             </td>
             <td class="quantity">
               <label for="icedCappuccinoQty">Quantity:</label>
