@@ -1,79 +1,88 @@
 <?php
-// initiate db conn
+// Database connection
 $hostname = "localhost";
 $username = "root";
-$password = "12345"; // add your password if set in the config file
+$password = "";
 $database = "javajam_coffee";
 
 $conn = new mysqli($hostname, $username, $password, $database);
 
-// fallback to check the conn
 if ($conn->connect_error) {
-  die("Failed to connect: " . $conn->connect_error);
+  die("Connection failed: " . $conn->connect_error);
 }
 
-// function to execute sql query to fetch the coffee prices
-function getCoffeeValue($conn, $coffeeType)
+// Function to get coffee price
+function getCoffeePrice($conn, $coffee)
 {
-  // Use prepared statements for security
   $stmt = $conn->prepare("SELECT price FROM prices WHERE coffee_type = ?");
-  $stmt->bind_param("s", $coffeeType);
+  $stmt->bind_param("s", $coffee);
   $stmt->execute();
   $result = $stmt->get_result();
+
   $price = "NULL";
   if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
     $price = htmlspecialchars($row['price']);
   }
-  $stmt->close();
   return $price;
 }
 
-function updateOrders($conn, $coffeeType, $quantity)
+// Function to update order quantity
+function updateOrders($conn, $coffee, $quantity)
 {
   $stmt = $conn->prepare("UPDATE sales SET quantity = quantity + ? WHERE coffee_type = ?");
-  $stmt->bind_param("is", $quantity, $coffeeType);
+  $stmt->bind_param("is", $quantity, $coffee);
   return $stmt->execute();
 }
 
-function updateRevenue($conn, $coffeeType, $revenue)
+// Function to update revenue
+function updateRevenue($conn, $coffee, $revenue)
 {
   $stmt = $conn->prepare("UPDATE sales SET revenue = revenue + ? WHERE coffee_type = ?");
-  $stmt->bind_param("ds", $revenue, $coffeeType);
+  $stmt->bind_param("ds", $revenue, $coffee);
   return $stmt->execute();
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  // Handling Just Java
   if (!empty($_POST['justJavaQty'])) {
-    $coffee = 'justJava';  // Define the coffee type
-    $quantity = (int)$_POST['justJavaQty'];
-    $price = getCoffeeValue($conn, $coffee);
+    $coffee = 'justJava';
+    $quantity = $_POST['justJavaQty'];
+    updateorders($conn, $coffee, $quantity);
+    $price = getCoffeePrice($conn, $coffee);
     $revenue = $price * $quantity;
-    updateOrders($conn, $coffee, $quantity);
-    updateRevenue($conn, $coffee, $revenue);
+    updaterevenue($conn, $coffee, $revenue);
   }
 
-  // Handling Cafe au Lait
+  // Update Café au Lait
   if (!empty($_POST['cafeAuLaitQty'])) {
-    $coffee = 'cafeAuLait';  // Define the coffee type
-    $quantity = (int)$_POST['cafeAuLaitQty'];
-    $price = getCoffeeValue($conn, $coffee);
+    $category = $_POST['cafeAuLaitSize'];
+    $coffee = ($category == getCoffeePrice($conn, 'cafeAuLaitSingle') ? 'cafeAuLaitSingle' : 'cafeAuLaitDouble');
+    $quantity = $_POST['cafeAuLaitQty'];
+    updateorders($conn, $coffee, $quantity);
+    $price = getCoffeePrice($conn, $coffee);
     $revenue = $price * $quantity;
-    updateOrders($conn, $coffee, $quantity);
-    updateRevenue($conn, $coffee, $revenue);
+    updaterevenue($conn, $coffee, $revenue);
   }
 
-  // Handling Iced Cappuccino
+  // Update Iced Cappuccino 
   if (!empty($_POST['icedCappuccinoQty'])) {
-    $coffee = 'icedCappuccino';  // Define the coffee type
-    $quantity = (int)$_POST['icedCappuccinoQty'];
-    $price = getCoffeeValue($conn, $coffee);
+    $category = $_POST['icedCappuccinoSize'];
+    $coffee = ($category == getCoffeePrice($conn, 'icedCappuccinoSingle') ? 'icedCappuccinoSingle' : 'icedCappuccinoDouble');
+    $quantity = $_POST['icedCappuccinoQty'];
+    updateorders($conn, $coffee, $quantity);
+    $price = getCoffeePrice($conn, $coffee);
     $revenue = $price * $quantity;
-    updateOrders($conn, $coffee, $quantity);
-    updateRevenue($conn, $coffee, $revenue);
+    updaterevenue($conn, $coffee, $revenue);
   }
+
+  echo "Order placed successfully!";
 }
+
+// Set security headers
+header("X-XSS-Protection: 1; mode=block");
+header("X-Frame-Options: SAMEORIGIN");
+header("X-Content-Type-Options: nosniff");
+
 ?>
 
 <!DOCTYPE html>
@@ -115,7 +124,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               <td class="drink">Just Java</td>
               <td class="description">
                 Regular house blend, decaffeinated coffee, or flavor of the day.
-                <br><b>Endless Cup $<?php echo getCoffeeValue($conn, 'justJava'); ?></b>
+                <br><b>Endless Cup $<?php echo getCoffeePrice($conn, 'justJava'); ?></b>
               </td>
               <td class="quantity">
                 <label for="justJavaQty">Quantity:</label>
@@ -128,15 +137,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               <td class="drink">Cafe au Lait</td>
               <td class="description">
                 House blended coffee infused into a smooth steamed milk.
-                <br><b>Single $<?php echo getCoffeeValue($conn, 'cafeAuLaitSingle'); ?>
-                  Double $<?php echo getCoffeeValue($conn, 'cafeAuLaitDouble'); ?></b>
+                <br><b>Single $<?php echo getCoffeePrice($conn, 'cafeAuLaitSingle'); ?>
+                  Double $<?php echo getCoffeePrice($conn, 'cafeAuLaitDouble'); ?></b>
               </td>
               <td class="quantity">
                 <label for="cafeAuLaitQty">Quantity:</label>
                 <input type="number" id="cafeAuLaitQty" name="cafeAuLaitQty" value="0" min="0" onchange="updateSubtotal()">
-                <select id="cafeAuLaitSize" onchange="updateSubtotal()">
-                  <option value="<?php echo getCoffeeValue($conn, 'cafeAuLaitSingle'); ?>">Single</option>
-                  <option value="<?php echo getCoffeeValue($conn, 'cafeAuLaitDouble'); ?>">Double</option>
+                <select id="cafeAuLaitSize" name="cafeAuLaitSize" onchange="updateSubtotal()">
+                  <option value="<?php echo getCoffeePrice($conn, 'cafeAuLaitSingle'); ?>">Single</option>
+                  <option value="<?php echo getCoffeePrice($conn, 'cafeAuLaitDouble'); ?>">Double</option>
                 </select>
               </td>
               <td class="subtotal" id="cafeAuLaitSubtotal">$0.00</td>
@@ -146,15 +155,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               <td class="drink">Iced Cappuccino</td>
               <td class="description">
                 Sweetened espresso blended with icy-cold milk and served in a chilled glass.
-                <br><b>Single $<?php echo getCoffeeValue($conn, 'icedCappuccinoSingle'); ?>
-                  Double $<?php echo getCoffeeValue($conn, 'icedCappuccinoDouble'); ?></b>
+                <br><b>Single $<?php echo getCoffeePrice($conn, 'icedCappuccinoSingle'); ?>
+                  Double $<?php echo getCoffeePrice($conn, 'icedCappuccinoDouble'); ?></b>
               </td>
               <td class="quantity">
                 <label for="icedCappuccinoQty">Quantity:</label>
                 <input type="number" id="icedCappuccinoQty" name="icedCappuccinoQty" value="0" min="0" onchange="updateSubtotal()">
-                <select id="icedCappuccinoSize" onchange="updateSubtotal()">
-                  <option value="<?php echo getCoffeeValue($conn, 'icedCappuccinoSingle'); ?>">Single</option>
-                  <option value="<?php echo getCoffeeValue($conn, 'icedCappuccinoDouble'); ?>">Double</option>
+                <select id="icedCappuccinoSize" name="icedCappuccinoSize" onchange="updateSubtotal()">
+                  <option value="<?php echo getCoffeePrice($conn, 'icedCappuccinoSingle'); ?>">Single</option>
+                  <option value="<?php echo getCoffeePrice($conn, 'icedCappuccinoDouble'); ?>">Double</option>
                 </select>
               </td>
               <td class="subtotal" id="icedCappuccinoSubtotal">$0.00</td>
