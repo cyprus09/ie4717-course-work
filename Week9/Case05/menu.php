@@ -74,8 +74,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $revenue = $price * $quantity;
     updaterevenue($conn, $coffee, $revenue);
   }
-
-  echo "Order placed successfully!";
 }
 
 // Set security headers
