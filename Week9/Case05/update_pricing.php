@@ -2,7 +2,7 @@
 // initiate db conn
 $hostname = "localhost";
 $username = "root";
-$password = "12345"; // add your password if set in the config file
+$password = ""; // add your password if set in the config file
 $database = "javajam_coffee";
 
 $conn = new mysqli($hostname, $username, $password, $database);

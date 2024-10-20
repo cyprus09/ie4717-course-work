@@ -37,7 +37,7 @@ h1 {
 .navbar {
   float: left;
   width: 12em;
-  height: 324px;
+  height: 100%;
   margin: 0px 5px 0px 0px;
   padding-top: 20px;
   text-align: center;
@@ -65,7 +65,11 @@ h1 {
 }
 
 .navbar-sales-report {
-  height: 312px;
+  height: 352px;
+}
+
+.navbar-generate-report {
+  height: 422px;
 }
 
 nav ul li a.active-home {
@@ -249,13 +253,22 @@ table.menu td {
   padding: 10px;
 }
 
+.total-sales {
+  text-align: right;
+  margin-top: 20px;
+  margin-right: 40px;
+  margin-left: 40px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 1.2em;
+}
+
 /* update pricing extra css */
 .check-box {
   width: 30px;
   text-align: center;
 }
 
-.check-box input[type="checkbox"] {
+input[type="checkbox"].check-box  {
   transform: scale(1.2);
 }
 
@@ -340,11 +353,10 @@ td p {
 #salestable {
   display: flex;
   justify-content: flex-start;
-  padding-left: 5vw;
 }
 
 #salestable table {
-  margin: 0 auto;
+  margin: 20px 40px;
   width: 60vw;
   height: auto;
   border-spacing: 0;
@@ -362,11 +374,10 @@ td p {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   color: #441613;
   padding: 15px;
-  border: none;
   vertical-align: middle;
 }
 
-input[type="checkbox"] {
+input[type="checkbox"].sales-report-checkbox {
   display: none;
 }
 

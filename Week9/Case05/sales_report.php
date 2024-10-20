@@ -14,27 +14,20 @@ if ($conn->connect_error) {
 
 function popular($conn)
 {
-  $sql = "SELECT product_name, category, quantity FROM sales WHERE quantity = (SELECT max(quantity) FROM sales);";
+  $sql = "SELECT product_name, category, quantity FROM sales ORDER BY quantity DESC LIMIT 1";
   $result = $conn->query($sql);
-
-  $product = "NULL";
-  $category = "NULL";
-  $quantity = 0;
-
-  if ($result) {
-    if ($result->num_rows > 0) {
-      $row = $result->fetch_assoc();
-      $product = htmlspecialchars($row['product_name']);
-      $product = htmlspecialchars($row['category']);
-      $product = htmlspecialchars($row['quantity']);
-    }
-  }
-  if ($quantity == 0) {
-    echo "no sales recorded";
+  if ($result && $result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    return $row['product_name'] . ' ' . $row['category'];
   } else {
-    echo $product . '(' . $category . ')';
+    return "No sales recorded.";
   }
 }
+
+// Set security headers
+header("X-XSS-Protection: 1; mode=block");
+header("X-Frame-Options: SAMEORIGIN");
+header("X-Content-Type-Options: nosniff");
 ?>
 
 
@@ -74,13 +67,13 @@ function popular($conn)
             <table>
               <tr>
                 <td class="check-box">
-                  <label><input type="checkbox" name="sales_prod" /><span class="custom-checkbox"></span></label>
+                  <label><input type="checkbox" class="sales-report-checkbox" name="sales_prod" /><span class="custom-checkbox"></span></label>
                 </td>
                 <td class="report_desc"><b>Total $ and quantity sales by products.</b></td>
               </tr>
               <tr>
                 <td class="check-box">
-                  <label><input type="checkbox" name="sales_cat"><span class="custom-checkbox"></span></label>
+                  <label><input type="checkbox" class="sales-report-checkbox" name="sales_cat"><span class="custom-checkbox"></span></label>
                 </td>
                 <td class="report_desc"><b>Total $ and quantity sales by categories.</b></td>
               </tr>

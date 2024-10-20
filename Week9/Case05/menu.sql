@@ -46,7 +46,7 @@ values
   ),
   (
     'icedCappuccinoSingle',
-    'Iced Cappucino',
+    'Iced Cappuccino',
     'Single',
     0,
     0.00
