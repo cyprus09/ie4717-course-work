@@ -24,7 +24,8 @@ $coffeeVariants = [
 // function to execute sql query to fetch all coffee prices
 function getAllCoffeeValues($conn)
 {
-  $sql = "SELECT coffee_type, price FROM prices WHERE coffee_type IN ('" . implode("','", $GLOBALS['coffeeVariants']) . "')";
+  global $coffeeVariants;
+  $sql = "SELECT coffee_type, price FROM prices WHERE coffee_type IN ('" . implode("','", $coffeeVariants) . "')";
   $result = $conn->query($sql);
 
   $prices = [];
@@ -54,16 +55,15 @@ $prices = getAllCoffeeValues($conn);
 // handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   foreach ($coffeeVariants as $variant) {
-    if (isset($_POST[$variant]) && !empty($_POST[$variant . 'Price'])) {
-      $price = floatval($_POST[$variant . 'Price']);
+    $priceKey = $variant . 'Price';
+    if (!empty($_POST[$priceKey])) {
+      $price = floatval($_POST[$priceKey]);
       if (updateCoffeePrice($conn, $variant, $price)) {
         $prices[$variant] = $price;
       }
     }
   }
 }
-
-$conn->close();
 
 // Set security headers
 header("X-XSS-Protection: 1; mode=block");
@@ -113,7 +113,7 @@ header("X-Content-Type-Options: nosniff");
               <td class="drink">Just Java</td>
               <td class="description">
                 Regular house blend, decaffeinated coffee, or flavor of the day.
-                <br><b>Endless Cup $<?php echo $prices['justJava']; ?> <input type="number" id="justJavaPrice" name="justJavaPrice" class="price" step="0.01" style="display:none" value="<?php echo $prices['justJava'] ?>" /></b>
+                <br><b>Endless Cup $<?php echo $prices['justJava']; ?> <input type="number" id="justJavaPrice" name="justJavaPrice" class="price" step="0.01" min="0" style="display:none" value="<?php echo $prices['justJava'] ?>" /></b>
               </td>
             </tr>
             <tr class="menu-item">
